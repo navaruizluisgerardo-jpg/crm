@@ -21,8 +21,9 @@ export const updateContactSchema = createContactSchema.partial()
 export const contactFiltersSchema = z.object({
   search: z.string().optional(),
   status: z
-    .enum(['lead', 'prospect', 'customer', 'churned', 'partner'])
-    .optional(),
+    .enum(['lead', 'prospect', 'customer', 'churned', 'partner', 'all'])
+    .optional()
+    .transform((v) => (v === 'all' ? undefined : v)),
   source: z.string().optional(),
   ownerId: z.string().optional(),
   page: z.coerce.number().min(1).default(1),
